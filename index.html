@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Arte del Prompt</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1207;
+    --paper: #f5f0e8;
+    --cream: #ede7d6;
+    --amber: #c8860a;
+    --rust: #b84a1e;
+    --sage: #4a6741;
+    --muted: #7a7060;
+    --line: #d4cbb8;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: var(–paper);
+color: var(–ink);
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 300;
+line-height: 1.7;
+min-height: 100vh;
+}
+
+/* NOISE TEXTURE OVERLAY */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 100;
+opacity: 0.4;
+}
+
+/* HEADER */
+header {
+border-bottom: 2px solid var(–ink);
+padding: 2rem 3rem 1.5rem;
+display: grid;
+grid-template-columns: 1fr auto;
+align-items: end;
+gap: 1rem;
+}
+
+.header-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 0.5rem;
+}
+
+h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.5rem, 6vw, 4.5rem);
+font-weight: 900;
+line-height: 1;
+letter-spacing: -0.02em;
+}
+
+h1 em {
+font-style: italic;
+color: var(–amber);
+}
+
+.header-right {
+text-align: right;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+color: var(–muted);
+line-height: 2;
+}
+
+/* INTRO STRIP */
+.intro-strip {
+background: var(–ink);
+color: var(–paper);
+padding: 1.2rem 3rem;
+font-size: 0.95rem;
+font-weight: 400;
+border-bottom: 2px solid var(–ink);
+}
+
+.intro-strip strong {
+color: var(–amber);
+}
+
+/* MAIN LAYOUT */
+main {
+max-width: 1100px;
+margin: 0 auto;
+padding: 3rem 2rem 6rem;
+}
+
+/* SECTION TITLES */
+.section-header {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+margin-bottom: 2rem;
+margin-top: 4rem;
+}
+
+.section-number {
+font-family: ‘Playfair Display’, serif;
+font-size: 4rem;
+font-weight: 900;
+color: var(–line);
+line-height: 1;
+flex-shrink: 0;
+}
+
+.section-title-block h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.8rem;
+font-weight: 700;
+line-height: 1.1;
+}
+
+.section-title-block p {
+color: var(–muted);
+font-size: 0.9rem;
+margin-top: 0.25rem;
+}
+
+/* PRINCIPLE CARDS */
+.principles-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 1px;
+border: 1px solid var(–line);
+background: var(–line);
+margin-bottom: 2rem;
+}
+
+.principle-card {
+background: var(–paper);
+padding: 1.8rem;
+transition: background 0.2s;
+cursor: default;
+}
+
+.principle-card:hover {
+background: var(–cream);
+}
+
+.principle-icon {
+font-size: 1.5rem;
+margin-bottom: 0.75rem;
+}
+
+.principle-card h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.1rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+}
+
+.principle-card p {
+font-size: 0.88rem;
+color: var(–muted);
+line-height: 1.6;
+}
+
+.principle-tag {
+display: inline-block;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+border: 1px solid var(–amber);
+color: var(–amber);
+padding: 0.15rem 0.5rem;
+margin-top: 0.75rem;
+border-radius: 2px;
+}
+
+/* COMPARISON BLOCKS */
+.comparison {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1px;
+background: var(–line);
+border: 1px solid var(–line);
+margin: 1.5rem 0;
+}
+
+.comp-bad, .comp-good {
+padding: 1.5rem;
+}
+
+.comp-bad { background: #faf5f0; }
+.comp-good { background: #f0f5f0; }
+
+.comp-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+margin-bottom: 0.75rem;
+display: flex;
+align-items: center;
+gap: 0.4rem;
+}
+
+.comp-bad .comp-label { color: var(–rust); }
+.comp-good .comp-label { color: var(–sage); }
+
+.comp-text {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.82rem;
+line-height: 1.6;
+color: var(–ink);
+background: rgba(255,255,255,0.5);
+padding: 0.75rem 1rem;
+border-radius: 4px;
+}
+
+.comp-note {
+font-size: 0.8rem;
+color: var(–muted);
+margin-top: 0.75rem;
+font-style: italic;
+}
+
+/* ANATOMY BLOCK */
+.anatomy-block {
+border: 2px solid var(–ink);
+padding: 2rem;
+position: relative;
+margin: 2rem 0;
+background: white;
+}
+
+.anatomy-title {
+position: absolute;
+top: -0.7rem;
+left: 1.5rem;
+background: var(–paper);
+padding: 0 0.5rem;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–muted);
+}
+
+.anatomy-prompt {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.9rem;
+line-height: 2;
+}
+
+.anatomy-part {
+display: inline;
+position: relative;
+cursor: pointer;
+border-radius: 3px;
+padding: 0.1rem 0.3rem;
+transition: opacity 0.2s;
+}
+
+.anatomy-part.role    { background: #fff3d4; border-bottom: 2px solid #c8860a; }
+.anatomy-part.context { background: #d4e8d4; border-bottom: 2px solid #4a6741; }
+.anatomy-part.task    { background: #d4dff5; border-bottom: 2px solid #3a5cbd; }
+.anatomy-part.format  { background: #f5d4d4; border-bottom: 2px solid #b84a1e; }
+.anatomy-part.example { background: #ead4f5; border-bottom: 2px solid #7a3a9a; }
+
+.anatomy-legend {
+display: flex;
+flex-wrap: wrap;
+gap: 0.75rem;
+margin-top: 1.5rem;
+padding-top: 1.5rem;
+border-top: 1px solid var(–line);
+}
+
+.legend-item {
+display: flex;
+align-items: center;
+gap: 0.4rem;
+font-size: 0.78rem;
+font-family: ‘DM Mono’, monospace;
+}
+
+.legend-dot {
+width: 10px; height: 10px;
+border-radius: 2px;
+flex-shrink: 0;
+}
+
+/* CHECKLIST */
+.checklist {
+list-style: none;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0.5rem 2rem;
+margin: 1.5rem 0;
+}
+
+.checklist li {
+display: flex;
+align-items: flex-start;
+gap: 0.6rem;
+font-size: 0.88rem;
+padding: 0.5rem 0;
+border-bottom: 1px solid var(–line);
+}
+
+.check-icon {
+color: var(–sage);
+font-size: 0.9rem;
+flex-shrink: 0;
+margin-top: 0.05rem;
+}
+
+/* INTERACTIVE BUILDER */
+.builder {
+border: 2px solid var(–ink);
+background: white;
+margin: 2rem 0;
+overflow: hidden;
+}
+
+.builder-header {
+background: var(–ink);
+color: var(–paper);
+padding: 1rem 1.5rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+
+.builder-header span {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.75rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+}
+
+.builder-body {
+padding: 1.5rem;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+}
+
+.builder-inputs { display: flex; flex-direction: column; gap: 1rem; }
+
+.input-group label {
+display: block;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 0.4rem;
+}
+
+.input-group select,
+.input-group input,
+.input-group textarea {
+width: 100%;
+border: 1px solid var(–line);
+border-radius: 3px;
+padding: 0.6rem 0.8rem;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+background: var(–paper);
+color: var(–ink);
+outline: none;
+transition: border-color 0.2s;
+resize: none;
+}
+
+.input-group select:focus,
+.input-group input:focus,
+.input-group textarea:focus {
+border-color: var(–amber);
+}
+
+.builder-output {
+background: #1a1207;
+border-radius: 4px;
+padding: 1.25rem;
+position: relative;
+display: flex;
+flex-direction: column;
+}
+
+.output-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: #7a7060;
+margin-bottom: 0.75rem;
+}
+
+#prompt-output {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.8rem;
+line-height: 1.7;
+color: #f5f0e8;
+flex: 1;
+white-space: pre-wrap;
+}
+
+#prompt-output .out-role    { color: #ffd27a; }
+#prompt-output .out-context { color: #8fcd8f; }
+#prompt-output .out-task    { color: #8fb4ff; }
+#prompt-output .out-format  { color: #ff9f9f; }
+#prompt-output .out-example { color: #d4a0ff; }
+
+.copy-btn {
+margin-top: 1rem;
+background: var(–amber);
+border: none;
+color: white;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 0.5rem 1rem;
+cursor: pointer;
+border-radius: 3px;
+transition: background 0.2s;
+align-self: flex-start;
+}
+
+.copy-btn:hover { background: #a56d08; }
+
+/* TIPS TABLE */
+.tips-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.87rem;
+margin: 1.5rem 0;
+}
+
+.tips-table th {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+text-align: left;
+padding: 0.75rem 1rem;
+border-bottom: 2px solid var(–ink);
+color: var(–muted);
+}
+
+.tips-table td {
+padding: 0.9rem 1rem;
+border-bottom: 1px solid var(–line);
+vertical-align: top;
+}
+
+.tips-table tr:last-child td { border-bottom: none; }
+.tips-table tr:hover td { background: var(–cream); }
+
+.tips-table td:first-child {
+font-weight: 500;
+width: 30%;
+}
+
+.tips-table td:last-child {
+color: var(–muted);
+font-style: italic;
+}
+
+/* CLOSING QUOTE */
+.closing {
+margin-top: 5rem;
+border-top: 2px solid var(–ink);
+padding-top: 3rem;
+display: grid;
+grid-template-columns: auto 1fr;
+gap: 2rem;
+align-items: start;
+}
+
+.closing-ornament {
+font-family: ‘Playfair Display’, serif;
+font-size: 8rem;
+line-height: 0.7;
+color: var(–amber);
+font-weight: 900;
+}
+
+.closing blockquote {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.4rem;
+font-style: italic;
+line-height: 1.5;
+max-width: 550px;
+}
+
+.closing cite {
+display: block;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.75rem;
+letter-spacing: 0.1em;
+color: var(–muted);
+margin-top: 1rem;
+font-style: normal;
+}
+
+/* DIVIDER */
+hr.ornament {
+border: none;
+text-align: center;
+color: var(–muted);
+font-size: 1.2rem;
+letter-spacing: 0.5em;
+margin: 3rem 0;
+}
+
+hr.ornament::before {
+content: ‘· · · · ·’;
+}
+
+@media (max-width: 650px) {
+header { padding: 1.5rem; }
+.comparison { grid-template-columns: 1fr; }
+.checklist { grid-template-columns: 1fr; }
+.builder-body { grid-template-columns: 1fr; }
+.closing { grid-template-columns: 1fr; }
+.closing-ornament { display: none; }
+}
+/* FOOTER */
+footer {
+border-top: 2px solid var(–ink);
+background: var(–cream);
+padding: 1.5rem 3rem;
+}
+
+.footer-inner {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: auto 1fr auto;
+align-items: center;
+gap: 2rem;
+}
+
+.footer-left {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+font-family: ‘Playfair Display’, serif;
+font-weight: 700;
+font-size: 0.95rem;
+}
+
+.footer-logo {
+color: var(–amber);
+font-size: 1rem;
+}
+
+.footer-center {
+font-size: 0.82rem;
+color: var(–muted);
+text-align: center;
+line-height: 1.6;
+}
+
+.footer-center strong {
+color: var(–ink);
+font-weight: 500;
+}
+
+.footer-right {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+color: var(–muted);
+text-align: right;
+line-height: 1.8;
+letter-spacing: 0.03em;
+}
+
+@media (max-width: 650px) {
+footer { padding: 1.5rem; }
+.footer-inner {
+grid-template-columns: 1fr;
+gap: 0.75rem;
+text-align: center;
+}
+.footer-left { justify-content: center; }
+.footer-right { text-align: center; }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-label">Manual de estudio · Prompting</div>
+    <h1>El arte de<br><em>pedir bien</em></h1>
+  </div>
+  <div class="header-right">
+    Guía práctica<br>de Ingeniería<br>de Prompts
+  </div>
+</header>
+
+<div class="intro-strip">
+  Un prompt es una instrucción, pero también es una conversación. <strong>La calidad de tu pregunta determina la calidad de la respuesta.</strong> Esta guía te enseña a escribir prompts que funcionen de verdad.
+</div>
+
+<main>
+
+  <!-- SECCIÓN 1: LOS 5 INGREDIENTES -->
+
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <div class="section-title-block">
+      <h2>Los 5 ingredientes de un buen prompt</h2>
+      <p>No todos son necesarios siempre, pero conocerlos te da control total</p>
+    </div>
+  </div>
+
+  <div class="principles-grid">
+    <div class="principle-card">
+      <div class="principle-icon">🎭</div>
+      <h3>Rol / Persona</h3>
+      <p>Dile a la IA qué tipo de experto debe comportarse. Esto calibra el tono, vocabulario y enfoque de la respuesta.</p>
+      <span class="principle-tag">Actúa como...</span>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon">🗺️</div>
+      <h3>Contexto</h3>
+      <p>Explica tu situación, quién eres, para qué necesitas esto y cualquier información relevante de fondo.</p>
+      <span class="principle-tag">Mi situación es...</span>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon">🎯</div>
+      <h3>Tarea concreta</h3>
+      <p>La acción específica que quieres que realice. Usa verbos claros: "escribe", "resume", "explica", "lista", "compara".</p>
+      <span class="principle-tag">Quiero que...</span>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon">📐</div>
+      <h3>Formato</h3>
+      <p>Especifica cómo quieres la respuesta: longitud, estructura, tono, idioma, si debe usar listas o prosa, etc.</p>
+      <span class="principle-tag">En formato de...</span>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon">📎</div>
+      <h3>Ejemplos</h3>
+      <p>Muestra lo que esperas. Un ejemplo vale más que mil adjetivos. Útil para textos, código o análisis con estilo específico.</p>
+      <span class="principle-tag">Por ejemplo...</span>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: ANATOMÍA -->
+
+  <div class="section-header" style="margin-top:3rem">
+    <div class="section-number">02</div>
+    <div class="section-title-block">
+      <h2>Anatomía de un prompt completo</h2>
+      <p>Observa cómo se combinan los ingredientes en la práctica</p>
+    </div>
+  </div>
+
+  <div class="anatomy-block">
+    <span class="anatomy-title">prompt de ejemplo · hover para identificar partes</span>
+    <div class="anatomy-prompt">
+      <span class="anatomy-part role" title="ROL">Eres un consultor de marketing digital con experiencia en startups B2B latinoamericanas.</span> <span class="anatomy-part context" title="CONTEXTO">Estoy lanzando un SaaS de gestión para restaurantes en Perú, dirigido a dueños de restaurantes medianos. Aún no tenemos clientes, estamos en etapa de demo.</span> <span class="anatomy-part task" title="TAREA">Escribe un email de primer contacto para enviar a restaurantes de Lima que podrían ser clientes potenciales.</span> <span class="anatomy-part format" title="FORMATO">El email debe tener máximo 150 palabras, tono amigable pero profesional, con un call-to-action claro para agendar una demo.</span> <span class="anatomy-part example" title="EJEMPLO">El asunto debe ser algo como: "Una pregunta rápida sobre [Nombre del restaurante]".</span>
+    </div>
+    <div class="anatomy-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#c8860a"></div>Rol</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4a6741"></div>Contexto</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3a5cbd"></div>Tarea</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#b84a1e"></div>Formato</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7a3a9a"></div>Ejemplo</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: COMPARACIONES -->
+
+  <div class="section-header">
+    <div class="section-number">03</div>
+    <div class="section-title-block">
+      <h2>Prompts vagos vs. prompts precisos</h2>
+      <p>La diferencia entre una respuesta genérica y una que realmente sirve</p>
+    </div>
+  </div>
+
+  <div class="comparison">
+    <div class="comp-bad">
+      <div class="comp-label">✗ &nbsp;Vago</div>
+      <div class="comp-text">Escríbeme sobre redes sociales para mi negocio</div>
+      <div class="comp-note">Sin contexto, sin formato, sin objetivo claro → respuesta genérica de 800 palabras que no sirve</div>
+    </div>
+    <div class="comp-good">
+      <div class="comp-label">✓ &nbsp;Preciso</div>
+      <div class="comp-text">Escríbeme 5 ideas de posts para Instagram (formato carrusel) para un restaurante en Lima que quiere mostrar su cocina de autor. Tono cercano, con emojis. Una idea por línea, con el hook en negrita.</div>
+      <div class="comp-note">Específico, accionable, con formato claro → resultado útil de inmediato</div>
+    </div>
+  </div>
+
+  <div class="comparison">
+    <div class="comp-bad">
+      <div class="comp-label">✗ &nbsp;Vago</div>
+      <div class="comp-text">Explícame cómo funciona Python</div>
+      <div class="comp-note">¿Para qué nivel? ¿Con qué objetivo? → Respuesta demasiado amplia</div>
+    </div>
+    <div class="comp-good">
+      <div class="comp-label">✓ &nbsp;Preciso</div>
+      <div class="comp-text">Soy desarrollador web con experiencia en JavaScript. Explícame los conceptos clave de Python que debería aprender primero, usando analogías con JS. Máximo 5 puntos, con un ejemplo de código corto para cada uno.</div>
+      <div class="comp-note">Nivel calibrado, formato definido, analogías útiles → aprendizaje efectivo</div>
+    </div>
+  </div>
+
+  <div class="comparison">
+    <div class="comp-bad">
+      <div class="comp-label">✗ &nbsp;Vago</div>
+      <div class="comp-text">Ayúdame con mi presentación</div>
+      <div class="comp-note">¿Qué tipo de ayuda? ¿Sobre qué tema? → Imposible responder bien</div>
+    </div>
+    <div class="comp-good">
+      <div class="comp-label">✓ &nbsp;Preciso</div>
+      <div class="comp-text">Tengo una presentación de 10 minutos para inversores sobre mi startup SaaS. Ya tengo el contenido. Necesito que me sugieras cómo estructurar los slides (cuántos, en qué orden) para maximizar el impacto en la primera reunión. Dame un esquema con el título de cada slide.</div>
+      <div class="comp-note">Restricciones claras, objetivo específico → estructura accionable</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: TÉCNICAS AVANZADAS -->
+
+  <div class="section-header">
+    <div class="section-number">04</div>
+    <div class="section-title-block">
+      <h2>Técnicas que marcan la diferencia</h2>
+      <p>Estrategias para prompts complejos o tareas de alta precisión</p>
+    </div>
+  </div>
+
+  <table class="tips-table">
+    <thead>
+      <tr>
+        <th>Técnica</th>
+        <th>Cómo usarla</th>
+        <th>Cuándo aplicarla</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pedir razonamiento paso a paso</td>
+        <td>Añade "piensa paso a paso" o "explica tu razonamiento antes de dar la respuesta"</td>
+        <td>Problemas lógicos, análisis, decisiones con múltiples variables</td>
+      </tr>
+      <tr>
+        <td>Dar ejemplos positivos Y negativos</td>
+        <td>"Quiero algo como [ejemplo bueno], pero NO como [ejemplo malo]"</td>
+        <td>Textos creativos, código con estilo específico, análisis de datos</td>
+      </tr>
+      <tr>
+        <td>Pedir variantes</td>
+        <td>"Dame 3 versiones: una formal, una informal, una creativa"</td>
+        <td>Títulos, subject lines, descripciones, textos de marketing</td>
+      </tr>
+      <tr>
+        <td>Definir restricciones explícitas</td>
+        <td>"Sin usar la palabra X", "máximo N palabras", "evita Y"</td>
+        <td>Cuando sabes qué NO quieres o tienes límites técnicos</td>
+      </tr>
+      <tr>
+        <td>Iterar sobre la respuesta</td>
+        <td>"Toma tu respuesta anterior y hazla un 30% más concisa / más técnica / más persuasiva"</td>
+        <td>Refinamiento de borradores, ajustar tono o profundidad</td>
+      </tr>
+      <tr>
+        <td>Usar XML / etiquetas</td>
+        <td>Pide que separe secciones: &lt;análisis&gt; / &lt;recomendación&gt; / &lt;código&gt;</td>
+        <td>Respuestas largas que necesitas procesar o copiar por partes</td>
+      </tr>
+      <tr>
+        <td>Pedir que haga preguntas primero</td>
+        <td>"Antes de responder, hazme las preguntas que necesites para darte la mejor respuesta"</td>
+        <td>Tareas ambiguas, proyectos grandes, cuando no sabes exactamente qué pedir</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECCIÓN 5: CONSTRUCTOR INTERACTIVO -->
+
+  <div class="section-header">
+    <div class="section-number">05</div>
+    <div class="section-title-block">
+      <h2>Constructor de prompts</h2>
+      <p>Practica combinando los ingredientes en tiempo real</p>
+    </div>
+  </div>
+
+  <div class="builder">
+    <div class="builder-header">
+      <span>🛠️ &nbsp;Laboratorio de prompts</span>
+    </div>
+    <div class="builder-body">
+      <div class="builder-inputs">
+        <div class="input-group">
+          <label>🎭 Rol (opcional)</label>
+          <input type="text" id="inp-role" placeholder="ej. Eres un experto en marketing digital..." oninput="buildPrompt()">
+        </div>
+        <div class="input-group">
+          <label>🗺️ Contexto (opcional)</label>
+          <textarea id="inp-context" rows="2" placeholder="ej. Tengo un restaurante en Lima, sin presencia en redes..." oninput="buildPrompt()"></textarea>
+        </div>
+        <div class="input-group">
+          <label>🎯 Tarea (requerido)</label>
+          <input type="text" id="inp-task" placeholder="ej. Escribe 5 ideas de post para Instagram..." oninput="buildPrompt()">
+        </div>
+        <div class="input-group">
+          <label>📐 Formato (opcional)</label>
+          <input type="text" id="inp-format" placeholder="ej. Lista numerada, máximo 100 palabras total..." oninput="buildPrompt()">
+        </div>
+        <div class="input-group">
+          <label>📎 Ejemplo (opcional)</label>
+          <input type="text" id="inp-example" placeholder="ej. Algo como: '¿Sabías que...?'" oninput="buildPrompt()">
+        </div>
+      </div>
+      <div class="builder-output">
+        <div class="output-label">→ tu prompt construido</div>
+        <div id="prompt-output">Completa los campos de la izquierda para construir tu prompt...</div>
+        <button class="copy-btn" onclick="copyPrompt()">Copiar prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+
+  <div class="section-header">
+    <div class="section-number">06</div>
+    <div class="section-title-block">
+      <h2>Checklist antes de enviar</h2>
+      <p>Las preguntas que deberías hacerte cada vez</p>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li><span class="check-icon">✦</span>¿Está claro qué quiero que haga exactamente?</li>
+    <li><span class="check-icon">✦</span>¿Definí el formato o longitud esperados?</li>
+    <li><span class="check-icon">✦</span>¿Di suficiente contexto sobre mi situación?</li>
+    <li><span class="check-icon">✦</span>¿Sería útil especificar un rol o expertise?</li>
+    <li><span class="check-icon">✦</span>¿Hay algo que explícitamente NO quiero?</li>
+    <li><span class="check-icon">✦</span>¿Un ejemplo haría más clara mi intención?</li>
+    <li><span class="check-icon">✦</span>¿El prompt tiene al menos 2-3 oraciones?</li>
+    <li><span class="check-icon">✦</span>¿Puedo ser más específico en algún punto?</li>
+  </ul>
+
+  <hr class="ornament">
+
+  <div class="closing">
+    <div class="closing-ornament">"</div>
+    <div>
+      <blockquote>
+        Un buen prompt no es el más largo ni el más técnico. Es el que te da exactamente lo que necesitas al primer intento, porque te tomaste treinta segundos más en pensar qué querías de verdad.
+      </blockquote>
+      <cite>— Principio fundamental del prompting efectivo</cite>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="footer-logo">✦</span>
+      <span class="footer-title">El Arte del Prompt</span>
+    </div>
+    <div class="footer-center">
+      Diseñado y desarrollado en colaboración entre
+      <strong>Christian Torres</strong> y <strong>Claude</strong> &mdash; una conversación que se convirtió en herramienta.
+    </div>
+    <div class="footer-right">
+      Hecho con curiosidad<br>y buenos prompts.
+    </div>
+  </div>
+</footer>
+
+<script>
+  function buildPrompt() {
+    const role    = document.getElementById('inp-role').value.trim();
+    const context = document.getElementById('inp-context').value.trim();
+    const task    = document.getElementById('inp-task').value.trim();
+    const format  = document.getElementById('inp-format').value.trim();
+    const example = document.getElementById('inp-example').value.trim();
+
+    if (!role && !context && !task && !format && !example) {
+      document.getElementById('prompt-output').innerHTML =
+        'Completa los campos de la izquierda para construir tu prompt...';
+      return;
+    }
+
+    let parts = [];
+    if (role)    parts.push(`<span class="out-role">${role}</span>`);
+    if (context) parts.push(`<span class="out-context">${context}</span>`);
+    if (task)    parts.push(`<span class="out-task">${task}</span>`);
+    if (format)  parts.push(`<span class="out-format">${format}</span>`);
+    if (example) parts.push(`<span class="out-example">${example}</span>`);
+
+    document.getElementById('prompt-output').innerHTML = parts.join(' ');
+  }
+
+  function copyPrompt() {
+    const role    = document.getElementById('inp-role').value.trim();
+    const context = document.getElementById('inp-context').value.trim();
+    const task    = document.getElementById('inp-task').value.trim();
+    const format  = document.getElementById('inp-format').value.trim();
+    const example = document.getElementById('inp-example').value.trim();
+
+    const text = [role, context, task, format, example].filter(Boolean).join(' ');
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '¡Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar prompt', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
