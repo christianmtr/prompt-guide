@@ -1022,6 +1022,146 @@
     .tbl { font-size: 0.78rem; }
     .tbl th, .tbl td { padding: 0.75rem 1rem; }
   }
+  /* ─── ANIMATIONS ─────────────────────────────────────── */
+
+  /* Base states — elements start invisible */
+  .sec-num        { opacity: 0; transform: translateX(-20px); }
+  .sec-text h2    { opacity: 0; transform: translateY(12px); }
+  .sec-text p     { opacity: 0; transform: translateY(8px); }
+  .card           { opacity: 0; transform: translateY(20px); }
+  .anatomy-wrap   { opacity: 0; transform: translateY(16px); }
+  .cmp            { opacity: 0; transform: translateY(14px); }
+  .tbl-wrap       { opacity: 0; transform: translateY(14px); }
+  .builder        { opacity: 0; transform: translateY(16px); }
+  .chk-item       { opacity: 0; transform: translateY(10px); }
+  .checklist-progress { opacity: 0; }
+  .tpl-tabs       { opacity: 0; transform: translateY(8px); }
+  .tpl-card       { opacity: 0; transform: translateY(16px); }
+  .glossary       { opacity: 0; transform: translateY(14px); }
+  .closing        { opacity: 0; transform: translateY(20px); }
+  header          { opacity: 0; }
+  .intro-band     { opacity: 0; }
+
+  /* Animated state */
+  .anim {
+    animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .anim-fade {
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  .anim-left {
+    animation: slideLeft 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes slideLeft {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Stagger delays */
+  .d0  { animation-delay: 0ms; }
+  .d1  { animation-delay: 60ms; }
+  .d2  { animation-delay: 120ms; }
+  .d3  { animation-delay: 180ms; }
+  .d4  { animation-delay: 240ms; }
+  .d5  { animation-delay: 300ms; }
+  .d6  { animation-delay: 360ms; }
+  .d7  { animation-delay: 420ms; }
+  .d8  { animation-delay: 80ms; }
+  .d9  { animation-delay: 160ms; }
+
+  /* ─── DROPDOWN EXAMPLES ──────────────────────────────── */
+  .builder-examples {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid #2e2418;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .examples-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6a6050;
+    white-space: nowrap;
+  }
+
+  .examples-select {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    background: #241c12;
+    border: 1px solid #3a3028;
+    border-radius: 6px;
+    color: #c8b89a;
+    padding: 0.4rem 2rem 0.4rem 0.75rem;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6050' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    transition: border-color 0.15s, color 0.15s;
+    flex: 1;
+    min-width: 200px;
+    max-width: 380px;
+  }
+
+  .examples-select:hover, .examples-select:focus {
+    border-color: var(--amber);
+    color: #f5e8c8;
+  }
+
+  .examples-load {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    border: 1px solid #3a3028;
+    background: transparent;
+    color: #6a6050;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .examples-load:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    background: rgba(185, 123, 12, 0.1);
+  }
+
+  .examples-clear {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #4a4038;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .examples-clear:hover { color: #ff9a7e; }
+
 </style>
 </head>
 <body>
@@ -1261,6 +1401,34 @@
           <div class="td td3"></div>
         </div>
         <span class="topbar-title">🛠 &nbsp; Laboratorio de prompts</span>
+      </div>
+      <div class="builder-examples">
+        <span class="examples-label">Cargar ejemplo</span>
+        <select class="examples-select" id="examples-select">
+          <option value="">— elige una categoría y caso —</option>
+          <optgroup label="💻 Desarrollador">
+            <option value="dev-debug">Depurar un error</option>
+            <option value="dev-review">Code review</option>
+            <option value="dev-refactor">Refactorizar código</option>
+          </optgroup>
+          <optgroup label="📣 Marketing">
+            <option value="mkt-email">Email de prospección</option>
+            <option value="mkt-post">Post para redes sociales</option>
+            <option value="mkt-valor">Propuesta de valor</option>
+          </optgroup>
+          <optgroup label="📚 Educación">
+            <option value="edu-concepto">Explicar un concepto</option>
+            <option value="edu-plan">Plan de estudio</option>
+            <option value="edu-feedback">Feedback de escritura</option>
+          </optgroup>
+          <optgroup label="⚡ Productividad">
+            <option value="pro-reunion">Preparar una reunión</option>
+            <option value="pro-decision">Tomar una decisión</option>
+            <option value="pro-resumen">Resumir un documento</option>
+          </optgroup>
+        </select>
+        <button class="examples-load" onclick="loadExample()">Cargar →</button>
+        <button class="examples-clear" onclick="clearBuilder()">Limpiar</button>
       </div>
       <div class="builder-body">
         <div class="builder-inputs">
@@ -1722,6 +1890,133 @@ Temperatura 0.9 para generar nombres de marca.</div>
 </footer>
 
 <script>
+  /* ══════════════════════════════════════════════
+     EXAMPLES DATA
+  ══════════════════════════════════════════════ */
+  const EXAMPLES = {
+    'dev-debug': {
+      role: 'Eres un desarrollador senior en Python con experiencia en Django.',
+      ctx:  'Tengo una aplicación web que lanza un error 500 solo en producción, no en desarrollo local.',
+      task: 'Analiza el siguiente traceback y explica la causa raíz del error con el fix correspondiente.',
+      fmt:  'Primero explica el problema en 2 oraciones, luego muestra el código corregido listo para copiar.',
+      ex:   'Error: "IntegrityError at /api/orders/ UNIQUE constraint failed: orders_order.tenant_id"'
+    },
+    'dev-review': {
+      role: 'Eres un senior engineer especializado en code reviews de Python/Django.',
+      ctx:  'Estoy preparando este código para producción en un SaaS multi-tenant.',
+      task: 'Revisa el siguiente código y señala: bugs potenciales, problemas de seguridad, rendimiento y legibilidad.',
+      fmt:  'Formato por sección numerada. Para cada problema indica: línea, problema y solución. Al final, un resumen de prioridad (crítico / medio / menor).',
+      ex:   ''
+    },
+    'dev-refactor': {
+      role: 'Eres un experto en clean code y patrones de diseño en Python.',
+      ctx:  'Tengo una función que creció demasiado y hace varias cosas a la vez.',
+      task: 'Refactoriza el siguiente código aplicando el principio de responsabilidad única. Mantén el comportamiento exacto.',
+      fmt:  'Muestra el código refactorizado con comentarios breves explicando cada decisión. Sin cambiar la interfaz pública.',
+      ex:   ''
+    },
+    'mkt-email': {
+      role: 'Eres un experto en ventas B2B con experiencia en SaaS para el mercado latinoamericano.',
+      ctx:  'Estoy lanzando GastroCore, un sistema POS para restaurantes en Perú. Aún estamos en etapa de demo, sin clientes pagos.',
+      task: 'Escribe un email de primer contacto para el dueño de un restaurante mediano en Lima.',
+      fmt:  'Máximo 120 palabras. Abre con una pregunta relevante para ellos. CTA claro para una demo de 20 minutos. Tono: directo, cercano, sin jerga técnica.',
+      ex:   'Asunto tipo: "Una pregunta rápida sobre [Nombre del restaurante]"'
+    },
+    'mkt-post': {
+      role: 'Eres un especialista en contenido para Instagram enfocado en negocios locales latinoamericanos.',
+      ctx:  'Manejo la cuenta de un restaurante de cocina peruana de autor en Lima. Queremos más reservas y visibilidad local.',
+      task: 'Crea 3 variantes de un post para Instagram sobre nuestro nuevo menú de temporada.',
+      fmt:  'Cada variante en bloque separado. Hook en la primera línea. Incluye emojis y máximo 5 hashtags relevantes. Tono cercano y apetitoso.',
+      ex:   'Hook de referencia: "¿Ya probaste lo que la temporada trajo a nuestra cocina?"'
+    },
+    'mkt-valor': {
+      role: 'Eres un consultor de marketing estratégico especializado en startups B2B.',
+      ctx:  'Tenemos un SaaS de gestión para restaurantes (POS, pedidos, reportes). Competimos con sistemas genéricos y hojas de Excel.',
+      task: 'Escribe 3 versiones de propuesta de valor: racional, emocional y de diferenciación.',
+      fmt:  'Máximo 2 oraciones por versión. Cada una con su etiqueta. Lenguaje claro, sin tecnicismos.',
+      ex:   ''
+    },
+    'edu-concepto': {
+      role: 'Eres un profesor experto en explicar tecnología a personas sin conocimientos técnicos.',
+      ctx:  'Mi audiencia son dueños de restaurantes adultos que no tienen formación en tecnología.',
+      task: 'Explícame qué es una base de datos relacional usando una analogía con algo de la vida cotidiana en un restaurante.',
+      fmt:  'Primero la analogía, luego la definición formal en 2 oraciones, luego un ejemplo práctico concreto para restaurantes. Sin tecnicismos.',
+      ex:   ''
+    },
+    'edu-plan': {
+      role: 'Eres un mentor de aprendizaje técnico con experiencia en desarrolladores que hacen transición a roles de producto.',
+      ctx:  'Soy desarrollador Django con 3 años de experiencia. Quiero aprender diseño de producto (UX/producto) para complementar mi perfil.',
+      task: 'Crea un plan de estudio de 8 semanas para aprender los fundamentos de product design.',
+      fmt:  'Una fila por semana con: tema, recurso recomendado (tipo, no link) y entregable práctico. Formato de tabla.',
+      ex:   ''
+    },
+    'edu-feedback': {
+      role: 'Eres un editor académico especializado en escritura técnica y de negocios en español.',
+      ctx:  'Estoy escribiendo la sección "Problema" de un pitch deck para inversores.',
+      task: 'Dame feedback sobre claridad del argumento, coherencia y posibles objeciones que un inversor podría tener.',
+      fmt:  'Secciones: 1) Lo que funciona bien, 2) Problemas principales (máximo 3), 3) Reescritura sugerida del párrafo más débil.',
+      ex:   ''
+    },
+    'pro-reunion': {
+      role: 'Eres un facilitador de reuniones de alto rendimiento para equipos de startups.',
+      ctx:  'Tenemos una reunión de 45 minutos con 3 cofundadores para decidir el pricing de nuestro producto antes del primer lanzamiento.',
+      task: 'Diseña la agenda completa de la reunión con tiempos y dinámicas.',
+      fmt:  'Agenda con bloques de tiempo. Las 3 preguntas clave a resolver. Posibles puntos de conflicto y cómo manejarlos. Formato del acta de acuerdos.',
+      ex:   ''
+    },
+    'pro-decision': {
+      role: 'Eres un advisor de negocios con experiencia en startups en etapa temprana.',
+      ctx:  'Estoy decidiendo si lanzar primero en Lima o expandirme a otras ciudades del Perú. Tengo recursos limitados para los próximos 6 meses.',
+      task: 'Analiza ambas opciones y dame una recomendación clara con su justificación.',
+      fmt:  'Primero el análisis comparativo (tabla), luego tu recomendación en un párrafo. Sé directo, no me des solo pros y contras sin concluir.',
+      ex:   ''
+    },
+    'pro-resumen': {
+      role: '',
+      ctx:  'Tengo un documento largo que necesito procesar rápido antes de una reunión en 10 minutos.',
+      task: 'Resume el siguiente documento para alguien que tiene 2 minutos para leerlo.',
+      fmt:  '1) De qué trata en 1 oración. 2) Los 3 puntos más importantes. 3) Acciones o decisiones que requiere de mi parte. 4) Urgencia o fecha límite si la hay.',
+      ex:   ''
+    }
+  };
+
+  /* ── Load example into builder ── */
+  function loadExample() {
+    const key = document.getElementById('examples-select').value;
+    if (!key || !EXAMPLES[key]) return;
+    const ex = EXAMPLES[key];
+
+    const fields = {
+      'inp-role': ex.role,
+      'inp-ctx':  ex.ctx,
+      'inp-task': ex.task,
+      'inp-fmt':  ex.fmt,
+      'inp-ex':   ex.ex
+    };
+
+    Object.entries(fields).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      el.value = val;
+      // flash animation
+      el.style.transition = 'background 0.3s';
+      el.style.background = 'rgba(185,123,12,0.12)';
+      setTimeout(() => { el.style.background = ''; }, 600);
+    });
+
+    buildPrompt();
+
+    // scroll builder into view smoothly
+    document.getElementById('examples-select').closest('.builder').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function clearBuilder() {
+    ['inp-role','inp-ctx','inp-task','inp-fmt','inp-ex'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('examples-select').value = '';
+    buildPrompt();
+  }
+
   /* ── Templates ── */
   function switchTab(id) {
     document.querySelectorAll('.tpl-tab').forEach(t => t.classList.remove('active'));
@@ -1744,13 +2039,10 @@ Temperatura 0.9 para generar nombres de marca.</div>
     const item = trigger.closest('.gls-item');
     const body = item.querySelector('.gls-body');
     const isOpen = item.classList.contains('open');
-
-    // close all
     document.querySelectorAll('.gls-item.open').forEach(el => {
       el.classList.remove('open');
       el.querySelector('.gls-body').style.maxHeight = '0';
     });
-
     if (!isOpen) {
       item.classList.add('open');
       body.style.maxHeight = body.scrollHeight + 'px';
@@ -1768,15 +2060,12 @@ Temperatura 0.9 para generar nombres de marca.</div>
     const task = document.getElementById('inp-task').value.trim();
     const fmt  = document.getElementById('inp-fmt').value.trim();
     const ex   = document.getElementById('inp-ex').value.trim();
-
-    const el = document.getElementById('prompt-out');
-
+    const el   = document.getElementById('prompt-out');
     if (!role && !ctx && !task && !fmt && !ex) {
       el.className = 'placeholder';
       el.innerHTML = 'Completa los campos de la izquierda para construir tu prompt…';
       return;
     }
-
     el.className = '';
     const parts = [];
     if (role) parts.push(`<span class="out-role">${esc(role)}</span>`);
@@ -1793,18 +2082,13 @@ Temperatura 0.9 para generar nombres de marca.</div>
     const task = document.getElementById('inp-task').value.trim();
     const fmt  = document.getElementById('inp-fmt').value.trim();
     const ex   = document.getElementById('inp-ex').value.trim();
-
     const text = [role, ctx, task, fmt, ex].filter(Boolean).join(' ');
     if (!text) return;
-
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('copy-btn');
       btn.textContent = '✓ Copiado';
       btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copiar prompt';
-        btn.classList.remove('copied');
-      }, 2200);
+      setTimeout(() => { btn.textContent = 'Copiar prompt'; btn.classList.remove('copied'); }, 2200);
     });
   }
 
@@ -1820,6 +2104,96 @@ Temperatura 0.9 para generar nombres de marca.</div>
     const total = items.length;
     document.getElementById('progress-fill').style.width = (done / total * 100) + '%';
     document.getElementById('progress-text').textContent = done + ' / ' + total;
+  }
+
+  /* ══════════════════════════════════════════════
+     SCROLL ANIMATIONS — IntersectionObserver
+  ══════════════════════════════════════════════ */
+  function initAnimations() {
+    // Header & intro band — immediate on load
+    setTimeout(() => {
+      document.querySelector('header').classList.add('anim-fade', 'd0');
+    }, 80);
+    setTimeout(() => {
+      document.querySelector('.intro-band').classList.add('anim', 'd0');
+    }, 200);
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const tag = el.dataset.anim || 'anim';
+        const delay = el.dataset.delay || 'd0';
+        el.classList.add(tag, delay);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    // Section numbers — slide from left
+    document.querySelectorAll('.sec-num').forEach(el => {
+      el.dataset.anim = 'anim-left'; el.dataset.delay = 'd0'; io.observe(el);
+    });
+
+    // Section headings — fade up with slight delay after number
+    document.querySelectorAll('.sec-text h2').forEach(el => {
+      el.dataset.anim = 'anim'; el.dataset.delay = 'd1'; io.observe(el);
+    });
+    document.querySelectorAll('.sec-text p').forEach(el => {
+      el.dataset.anim = 'anim'; el.dataset.delay = 'd2'; io.observe(el);
+    });
+
+    // Cards — staggered
+    document.querySelectorAll('.cards-grid .card').forEach((el, i) => {
+      el.dataset.anim = 'anim';
+      el.dataset.delay = ['d0','d1','d2','d3','d4'][i] || 'd4';
+      io.observe(el);
+    });
+
+    // Anatomy, table, builder, glossary, closing — single fade-up
+    ['anatomy-wrap','tbl-wrap','builder','glossary','closing'].forEach(cls => {
+      document.querySelectorAll('.' + cls).forEach(el => {
+        el.dataset.anim = 'anim'; el.dataset.delay = 'd1'; io.observe(el);
+      });
+    });
+
+    // Comparisons — staggered
+    document.querySelectorAll('.cmp').forEach((el, i) => {
+      el.dataset.anim = 'anim';
+      el.dataset.delay = ['d0','d2','d4'][i] || 'd0';
+      io.observe(el);
+    });
+
+    // Checklist items — staggered pairs
+    document.querySelectorAll('.chk-item').forEach((el, i) => {
+      el.dataset.anim = 'anim';
+      el.dataset.delay = ['d0','d1','d2','d3','d4','d5','d6','d7'][i] || 'd0';
+      io.observe(el);
+    });
+
+    document.querySelector('.checklist-progress').dataset.anim = 'anim-fade';
+    document.querySelector('.checklist-progress').dataset.delay = 'd8';
+    io.observe(document.querySelector('.checklist-progress'));
+
+    // Template tabs + cards
+    document.querySelector('.tpl-tabs').dataset.anim = 'anim';
+    document.querySelector('.tpl-tabs').dataset.delay = 'd1';
+    io.observe(document.querySelector('.tpl-tabs'));
+
+    document.querySelectorAll('.tpl-card').forEach((el, i) => {
+      el.dataset.anim = 'anim';
+      el.dataset.delay = ['d0','d1','d2','d3'][i % 4] || 'd0';
+      io.observe(el);
+    });
+  }
+
+  // Respect prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Just make everything visible immediately
+    document.querySelectorAll(
+      '.sec-num,.sec-text h2,.sec-text p,.card,.anatomy-wrap,.cmp,.tbl-wrap,.builder,.chk-item,.checklist-progress,.tpl-tabs,.tpl-card,.glossary,.closing,header,.intro-band'
+    ).forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+  } else {
+    document.addEventListener('DOMContentLoaded', initAnimations);
   }
 </script>
 
