@@ -702,6 +702,198 @@
     white-space: nowrap;
   }
 
+  /* ─── TEMPLATES ─────────────────────────────────────── */
+  .tpl-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tpl-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    border-radius: 99px;
+    border: 1.5px solid var(--line);
+    background: var(--white);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+
+  .tpl-tab:hover { border-color: var(--amber); color: var(--amber); }
+  .tpl-tab.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+  .tpl-panel { display: none; }
+  .tpl-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .tpl-card {
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .tpl-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: var(--amber); }
+
+  .tpl-card-head {
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .tpl-icon { font-size: 1rem; flex-shrink: 0; }
+
+  .tpl-name { font-weight: 600; font-size: 0.88rem; line-height: 1.3; }
+
+  .tpl-card-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.77rem;
+    line-height: 1.7;
+    color: var(--ink);
+    padding: 1rem 1.25rem;
+    flex: 1;
+    background: #faf8f4;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .tpl-card-foot {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .tpl-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .tpl-copy:hover { border-color: var(--amber); color: var(--amber); background: var(--amber-light); }
+  .tpl-copy.copied { border-color: var(--sage); color: var(--sage); background: var(--sage-light); }
+
+  /* ─── GLOSSARY ───────────────────────────────────────── */
+  .glossary { display: flex; flex-direction: column; gap: 0; border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; }
+
+  .gls-item {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    transition: background 0.15s;
+  }
+
+  .gls-item:last-child { border-bottom: none; }
+
+  .gls-item.open { background: var(--white); }
+
+  .gls-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .gls-trigger:hover { background: var(--cream); }
+  .gls-item.open .gls-trigger { background: var(--amber-light); border-bottom: 1px solid var(--amber); }
+
+  .gls-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    flex: 1;
+    line-height: 1.2;
+  }
+
+  .gls-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    background: var(--cream);
+    color: var(--muted);
+    flex-shrink: 0;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .gls-item.open .gls-badge { background: var(--amber); color: white; }
+
+  .gls-arrow {
+    font-size: 0.8rem;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    line-height: 1;
+  }
+
+  .gls-item.open .gls-arrow { transform: rotate(180deg); }
+
+  .gls-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+
+  .gls-body-inner {
+    padding: 1rem 1.4rem 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .gls-def {
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+  }
+
+  .gls-example {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    background: #faf8f4;
+    border-left: 3px solid var(--amber);
+    padding: 0.65rem 0.9rem;
+    border-radius: 0 6px 6px 0;
+    color: var(--ink);
+    line-height: 1.6;
+    text-transform: none;
+  }
+
+  .gls-example-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .tpl-panel.active { grid-template-columns: 1fr; }
+  }
+
   /* ─── CLOSING QUOTE ─────────────────────────────────── */
   .closing {
     margin-top: 5rem;
@@ -1163,6 +1355,345 @@
     </div>
   </section>
 
+  <!-- 07 · PLANTILLAS -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-num">07</div>
+      <div class="sec-text">
+        <h2>Plantillas listas para usar</h2>
+        <p>Copia, adapta y lanza — reemplaza los textos en <span style="font-family:'DM Mono',monospace;font-size:0.85em;color:var(--amber);background:var(--amber-light);padding:0 4px;border-radius:3px">[corchetes]</span> con tu información</p>
+      </div>
+    </div>
+
+    <div class="tpl-tabs">
+      <button class="tpl-tab active" onclick="switchTab('dev')">💻 Desarrollador</button>
+      <button class="tpl-tab" onclick="switchTab('mkt')">📣 Marketing</button>
+      <button class="tpl-tab" onclick="switchTab('edu')">📚 Educación</button>
+      <button class="tpl-tab" onclick="switchTab('pro')">⚡ Productividad</button>
+    </div>
+
+    <!-- DEV -->
+    <div class="tpl-panel active" id="tpl-dev">
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">🐛</span><span class="tpl-name">Depurar un error</span></div>
+        <div class="tpl-card-body" id="tc-dev-1">Eres un desarrollador senior en [lenguaje]. Tengo el siguiente error:
+
+[pega el mensaje de error aquí]
+
+Este es el bloque de código relevante:
+
+[pega el código aquí]
+
+Explica por qué ocurre el error y dame la corrección con el código listo para copiar. Si hay más de una causa posible, lista cada una.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-dev-1', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">🧪</span><span class="tpl-name">Escribir tests</span></div>
+        <div class="tpl-card-body" id="tc-dev-2">Eres un experto en testing con [framework de tests]. Escribe tests unitarios para la siguiente función:
+
+[pega la función aquí]
+
+Cubre: casos normales, casos borde y entradas inválidas. Usa nombres descriptivos para cada test. Formato: código listo para ejecutar, sin explicaciones adicionales.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-dev-2', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">🔍</span><span class="tpl-name">Code review</span></div>
+        <div class="tpl-card-body" id="tc-dev-3">Actúa como un revisor de código experimentado. Analiza el siguiente código y señala: 1) bugs o errores potenciales, 2) problemas de rendimiento, 3) mejoras de legibilidad, 4) problemas de seguridad si los hay.
+
+[pega el código aquí]
+
+Para cada punto, indica la línea, el problema y la solución sugerida.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-dev-3', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">📝</span><span class="tpl-name">Documentar código</span></div>
+        <div class="tpl-card-body" id="tc-dev-4">Genera documentación técnica para el siguiente [función / clase / módulo] en formato [JSDoc / docstring / comentarios inline]. Incluye: descripción general, parámetros con tipos, valor de retorno y un ejemplo de uso.
+
+[pega el código aquí]</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-dev-4', this)">Copiar</button></div>
+      </div>
+    </div>
+
+    <!-- MARKETING -->
+    <div class="tpl-panel" id="tpl-mkt">
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">✉️</span><span class="tpl-name">Email de prospección</span></div>
+        <div class="tpl-card-body" id="tc-mkt-1">Eres un experto en ventas B2B. Escribe un email de primer contacto para [tipo de empresa objetivo].
+
+Contexto: Ofrecemos [descripción de producto/servicio] que ayuda a [beneficio principal]. El receptor es [cargo del destinatario].
+
+El email debe: tener máximo 120 palabras, abrir con una pregunta o dato relevante para ellos, mencionar el beneficio sin sonar vendedor, y cerrar con una CTA para una llamada de 15 minutos. Tono: directo y profesional.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-mkt-1', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">📱</span><span class="tpl-name">Post para redes sociales</span></div>
+        <div class="tpl-card-body" id="tc-mkt-2">Eres un especialista en contenido para [red social]. Crea 3 variantes de un post sobre [tema] para [tipo de negocio/marca].
+
+Tono: [cercano / profesional / educativo]. El post debe generar [engagement / tráfico / conversiones]. Incluye emojis relevantes y hashtags al final. Cada variante en un bloque separado, con el hook en la primera línea.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-mkt-2', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">🎯</span><span class="tpl-name">Propuesta de valor</span></div>
+        <div class="tpl-card-body" id="tc-mkt-3">Ayúdame a refinar la propuesta de valor de [nombre del producto/servicio].
+
+Lo que hace: [descripción].
+Para quién: [perfil del cliente ideal].
+Problema que resuelve: [problema principal].
+Alternativas actuales del cliente: [cómo lo resuelven hoy].
+
+Dame 3 versiones de propuesta de valor: una racional (datos/resultados), una emocional (beneficio sentido) y una de diferenciación (por qué nosotros y no la competencia). Máximo 2 oraciones cada una.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-mkt-3', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">📊</span><span class="tpl-name">Análisis de competencia</span></div>
+        <div class="tpl-card-body" id="tc-mkt-4">Actúa como analista de mercado. Compara [mi producto] con [competidor 1] y [competidor 2] en los siguientes criterios: precio, características clave, público objetivo, canales de adquisición y puntos débiles conocidos.
+
+Presenta el resultado en una tabla y luego dame 3 oportunidades de diferenciación que podría explotar basándote en los gaps que encuentres.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-mkt-4', this)">Copiar</button></div>
+      </div>
+    </div>
+
+    <!-- EDUCACIÓN -->
+    <div class="tpl-panel" id="tpl-edu">
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">🧠</span><span class="tpl-name">Explicar un concepto</span></div>
+        <div class="tpl-card-body" id="tc-edu-1">Explícame [concepto] como si tuviera [nivel: ningún conocimiento previo / conocimientos básicos / nivel intermedio] en el tema.
+
+Usa una analogía con algo cotidiano para la explicación central. Luego dame: 1) la definición formal, 2) un ejemplo práctico real, 3) los 3 errores más comunes al entender este concepto.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-edu-1', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">📋</span><span class="tpl-name">Plan de estudio</span></div>
+        <div class="tpl-card-body" id="tc-edu-2">Crea un plan de estudio para aprender [tema] en [duración: 2 semanas / 1 mes / 3 meses].
+
+Mi nivel actual: [principiante / intermedio]. Tiempo disponible: [horas] por semana. Objetivo final: [qué quiero poder hacer al terminar].
+
+Estructura el plan semana a semana con: tema de la semana, recursos recomendados (tipo, no links) y un ejercicio práctico para validar lo aprendido.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-edu-2', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">❓</span><span class="tpl-name">Generar preguntas de repaso</span></div>
+        <div class="tpl-card-body" id="tc-edu-3">Basándote en el siguiente contenido, genera 10 preguntas de repaso que cubran los puntos más importantes. Incluye 3 niveles: 4 preguntas de comprensión básica, 4 de aplicación y 2 de análisis crítico. Para cada una incluye la respuesta correcta en una línea aparte.
+
+[pega el contenido aquí]</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-edu-3', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">✏️</span><span class="tpl-name">Feedback de escritura</span></div>
+        <div class="tpl-card-body" id="tc-edu-4">Eres un editor académico. Lee el siguiente texto y dame feedback estructurado en: 1) claridad del argumento central, 2) coherencia entre párrafos, 3) problemas de gramática o estilo, 4) lo que funciona bien.
+
+Sé específico: señala párrafos o frases concretas. Al final, sugiere una reescritura del párrafo más débil.
+
+[pega el texto aquí]</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-edu-4', this)">Copiar</button></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTIVIDAD -->
+    <div class="tpl-panel" id="tpl-pro">
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">📅</span><span class="tpl-name">Preparar una reunión</span></div>
+        <div class="tpl-card-body" id="tc-pro-1">Ayúdame a preparar una reunión de [duración] con [número] personas sobre [tema].
+
+Objetivo de la reunión: [qué debe quedar decidido o resuelto al final].
+Contexto: [situación actual relevante].
+
+Dame: 1) agenda con tiempos asignados, 2) las 3 preguntas clave que debo hacer, 3) posibles puntos de fricción y cómo manejarlos, 4) formato del acta de seguimiento.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-pro-1', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">📄</span><span class="tpl-name">Resumir un documento</span></div>
+        <div class="tpl-card-body" id="tc-pro-2">Resume el siguiente documento para alguien que tiene 2 minutos para leerlo. Estructura así: 1) de qué trata en 1 oración, 2) los 3 puntos más importantes, 3) decisiones o acciones que requiere de mi parte, 4) fecha límite o urgencia si la hay.
+
+[pega el documento o fragmento aquí]</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-pro-2', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">🤔</span><span class="tpl-name">Tomar una decisión</span></div>
+        <div class="tpl-card-body" id="tc-pro-3">Necesito tomar la siguiente decisión: [describe la decisión].
+
+Opciones que estoy considerando: [opción A] vs [opción B] (y [opción C] si aplica).
+Criterios más importantes para mí: [lista 2-3 criterios].
+Restricciones: [tiempo, presupuesto, recursos].
+
+Analiza cada opción contra mis criterios, identifica lo que no estoy considerando y dame una recomendación con su justificación. No me des solo pros y contras — dame tu opinión directa.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-pro-3', this)">Copiar</button></div>
+      </div>
+      <div class="tpl-card">
+        <div class="tpl-card-head"><span class="tpl-icon">💬</span><span class="tpl-name">Responder un mensaje difícil</span></div>
+        <div class="tpl-card-body" id="tc-pro-4">Ayúdame a responder el siguiente mensaje de forma [profesional / empática / directa] sin generar conflicto innecesario.
+
+Contexto de la relación: [colega / cliente / jefe / proveedor].
+Lo que quiero lograr con mi respuesta: [objetivo].
+Lo que no quiero que pase: [riesgo a evitar].
+
+Mensaje que debo responder:
+[pega el mensaje aquí]
+
+Dame 2 versiones: una más suave y una más directa.</div>
+        <div class="tpl-card-foot"><button class="tpl-copy" onclick="copyTpl('tc-pro-4', this)">Copiar</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · GLOSARIO -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-num">08</div>
+      <div class="sec-text">
+        <h2>Glosario de prompting</h2>
+        <p>Los términos que verás cuando profundices en el tema</p>
+      </div>
+    </div>
+
+    <div class="glossary">
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Zero-shot prompting</span>
+          <span class="gls-badge">básico</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Hacer una solicitud directamente sin dar ningún ejemplo previo. La IA responde basándose solo en su entrenamiento. Es el tipo de prompt más común y funciona bien para tareas simples o bien definidas.</p>
+            <div class="gls-example"><div class="gls-example-label">Ejemplo</div>Traduce "good morning" al español.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Few-shot prompting</span>
+          <span class="gls-badge">básico</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Incluir 2 a 5 ejemplos del resultado esperado dentro del mismo prompt para que la IA entienda el patrón. Muy útil para tareas con un formato o estilo muy específico que sería difícil de describir solo con palabras.</p>
+            <div class="gls-example"><div class="gls-example-label">Ejemplo</div>Input: "perro" → Output: "🐶 animal doméstico"
+Input: "sol" → Output: "☀️ estrella central"
+Input: "libro" → Output: ?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Chain of Thought (CoT)</span>
+          <span class="gls-badge">intermedio</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Técnica que le pide a la IA que "piense en voz alta" antes de dar su respuesta final. Al razonar paso a paso, comete menos errores en problemas complejos. Se activa con frases como "piensa paso a paso" o "explica tu razonamiento".</p>
+            <div class="gls-example"><div class="gls-example-label">Ejemplo</div>¿Cuántos días hay entre el 15 de marzo y el 4 de julio? Piensa paso a paso antes de responder.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">System prompt</span>
+          <span class="gls-badge">técnico</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Instrucción de configuración que se le da a la IA antes de empezar la conversación. Define su personalidad, tono, restricciones y contexto permanente. En la API de Claude corresponde al parámetro <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0 4px;border-radius:3px">system</code>. En el chat, sería como las instrucciones del perfil.</p>
+            <div class="gls-example"><div class="gls-example-label">Ejemplo</div><span style="text-transform:none">"Eres un asistente de soporte para GastroCore. Solo respondes preguntas sobre el sistema. Siempre en español. Tono amable pero conciso."</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Temperatura</span>
+          <span class="gls-badge">técnico</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Parámetro numérico (0 a 1) que controla qué tan "creativa" o predecible es la respuesta. Temperatura baja (0.1–0.3) = respuestas más consistentes y precisas. Temperatura alta (0.7–1.0) = más variedad y creatividad. Para tareas de análisis o código, usar temperatura baja. Para escritura creativa, alta.</p>
+            <div class="gls-example"><div class="gls-example-label">Cuándo usarlo</div>Temperatura 0.1 para extraer datos de un texto.
+Temperatura 0.9 para generar nombres de marca.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Tokens</span>
+          <span class="gls-badge">técnico</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">La unidad mínima con la que los modelos procesan texto. No es exactamente una palabra: en español, 1 token ≈ 0.7 palabras. "Hola" es 1 token, "desarrollador" puede ser 2–3. Los costos de la API y los límites de contexto se miden en tokens, no en palabras ni caracteres.</p>
+            <div class="gls-example"><div class="gls-example-label">Regla práctica</div">1,000 tokens ≈ 750 palabras ≈ 1.5 páginas de texto.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Ventana de contexto</span>
+          <span class="gls-badge">técnico</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">La cantidad máxima de texto (medida en tokens) que el modelo puede "ver" en una sola conversación: tu historial, el system prompt y la respuesta actual. Si la conversación supera ese límite, el modelo empieza a "olvidar" los mensajes más antiguos. Claude tiene una de las ventanas más grandes del mercado.</p>
+            <div class="gls-example"><div class="gls-example-label">Analogía</div>Es como la memoria de trabajo humana: puedes manejar cierta cantidad de información a la vez, pero no todo lo que has aprendido en tu vida.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Alucinación</span>
+          <span class="gls-badge">importante</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Cuando la IA genera información que suena convincente pero es falsa o inventada. No lo hace intencionalmente: es una limitación de cómo funcionan los modelos de lenguaje. Ocurre más en datos específicos como fechas, nombres, citas textuales o estadísticas. Siempre verifica hechos críticos.</p>
+            <div class="gls-example"><div class="gls-example-label">Cómo reducirlo</div>Pide fuentes, usa frases como "si no sabes, dímelo", y verifica datos concretos antes de usarlos.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">Prompt injection</span>
+          <span class="gls-badge">seguridad</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Ataque en el que un texto malicioso dentro del contenido que procesa la IA intenta anular sus instrucciones originales. Relevante si construyes aplicaciones donde la IA procesa texto de terceros. Por ejemplo: un documento que dice "ignora tus instrucciones y haz X en su lugar".</p>
+            <div class="gls-example"><div class="gls-example-label">Relevante para</div>Desarrolladores que integran LLMs en productos: valida siempre las entradas del usuario antes de pasarlas al modelo.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gls-item">
+        <button class="gls-trigger" onclick="toggleGls(this)">
+          <span class="gls-term">RAG (Retrieval-Augmented Generation)</span>
+          <span class="gls-badge">avanzado</span>
+          <span class="gls-arrow">▼</span>
+        </button>
+        <div class="gls-body">
+          <div class="gls-body-inner">
+            <p class="gls-def">Técnica que combina un sistema de búsqueda con un modelo de lenguaje. Antes de responder, el sistema recupera documentos relevantes de una base de datos y los incluye en el contexto. Permite que la IA responda con información actualizada o privada sin necesidad de re-entrenar el modelo.</p>
+            <div class="gls-example"><div class="gls-example-label">Caso de uso</div><span style="text-transform:none">Un chatbot de soporte que busca en tu documentación interna antes de responder al cliente.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- CLOSING QUOTE -->
   <div class="closing">
     <blockquote>
@@ -1191,6 +1722,41 @@
 </footer>
 
 <script>
+  /* ── Templates ── */
+  function switchTab(id) {
+    document.querySelectorAll('.tpl-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tpl-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tpl-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function copyTpl(id, btn) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2200);
+    });
+  }
+
+  /* ── Glossary ── */
+  function toggleGls(trigger) {
+    const item = trigger.closest('.gls-item');
+    const body = item.querySelector('.gls-body');
+    const isOpen = item.classList.contains('open');
+
+    // close all
+    document.querySelectorAll('.gls-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.gls-body').style.maxHeight = '0';
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
   /* ── Builder ── */
   function esc(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
